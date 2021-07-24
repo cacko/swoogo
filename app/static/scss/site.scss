@@ -1,0 +1,110 @@
+$font-color: #e8e9ed;
+$error-color: #ff3c74;
+$secondary-color: #9dccd6;
+$page-width: 60em;
+
+:root {
+    --background-color: #333338;
+    --background-color-invert: 204, 204, 199;
+    --background-color-rgb: 51, 51, 56;
+    --code-bg-color: #65656e;
+    --code-bg-color-invert: 154, 154, 145;
+    --code-bg-color-rgb: 101, 101, 110;
+    --invert-font-color: #222225;
+    --invert-font-color-invert: 221, 221, 218;
+    --invert-font-color-rgb: 34, 34, 37;
+    --font-color:#{$font-color};
+    --font-color-invert: 23, 22, 18;
+    --font-color-rgb: 232, 233, 237;
+    --primary-color: #62c4ff;
+    --primary-color-invert: 157, 59, 0;
+    --primary-color-rgb: 98, 196, 255;
+    --secondary-color: #{$secondary-color};
+    --secondary-color-invert: 98, 51, 41;
+    --secondary-color-rgb: 157, 204, 214;
+    --tertiary-color: #a3abba;
+    --tertiary-color-invert: 92, 84, 69;
+    --tertiary-color-rgb: 163, 171, 186;
+    --error-color: #{$error-color};
+    --error-color-invert: 0, 195, 139;
+    --error-color-rgb: 255, 60, 116;
+    --progress-bar-background: #3f3f44;
+    --progress-bar-background-invert: 192, 192, 187;
+    --progress-bar-background-rgb: 63, 63, 68;
+    --progress-bar-fill: #62c4ff;
+    --progress-bar-fill-invert: 157, 59, 0;
+    --progress-bar-fill-rgb: 98, 196, 255;
+    --logo-opacity: 0.15;
+    --global-font-size: 17px;
+    --global-line-size: 1.4em;
+    --global-space: 10px;
+    --page-width: #{$page-width};
+    --font-stack: "Nova Oval";
+}
+
+
+
+
+
+@media only screen and (max-width: #{$page-width}) {
+    :root {
+        --page-width: 95%;
+    }
+}
+
+pre {
+    font-size: 0.7em;
+}
+
+[issues] {
+
+    li {
+        display: flex;
+        flex-flow: column;
+
+        @media only screen and (min-width: 768px) {
+            display: grid;
+            grid-template-columns: 130px minmax(10em, 1fr) minmax(10em, 1fr);
+            column-gap: 0.3em;
+            row-gap: 0.3em;
+            padding: 0.5rem;
+            border-bottom: 0.5px dashed;
+            border-bottom-color: $font-color;
+        }
+
+        >div {
+            display: flex;
+            flex-flow: column;
+
+            [label] {
+                color: $secondary-color;
+                padding-right: 0.3em;
+            }
+
+
+            [issue-assignee] {
+                color: $secondary-color;
+                padding-left: .3em;
+            }
+        }
+
+        &:after {
+            content: unset;
+        }
+
+
+
+        &[not-valid] {
+
+            [error] {
+                text-transform: uppercase;
+                color: $error-color;
+            }
+
+            a {
+                color: $error-color;
+            }
+        }
+
+    }
+}

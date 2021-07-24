@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Waiting for Code Review</h1>
+{% if waiting|length %}
+<ul issues>
+  {% for item in waiting %} {% set isValid = item.isValid %}
+  <li {% if not isValid %}not-valid{% endif %}>
+    <a
+      href="{{ config.JIRA_URL }}/browse/{{ item.key }}"
+      rel="noreferrer"
+      target="_blank"
+      >{{ item.key }}</a
+    >
+    <div>
+      <div>{{ item.summary }}</div>
+      <div issue-status>
+        {{ item.status }}
+        <span issue-assignee>{{ item.assignee.name }}</span>
+      </div>
+      {% if not isValid %}
+      <div error>{{ item.errors }}</div>
+      {% endif %}
+    </div>
+    <div>
+      <div>
+        {% if item.job %} <span label>Scheduled</span>{{
+        item.job.next_run_time.strftime('%H:%M %A')}} {% else %} Stalled {%
+        endif %}
+      </div>
+      <div><span label>From</span>{{ item.returnTo.name }}</div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Nothing</p>
+{% endif %}
+<h1>Processed</h1>
+{% if processed|length %}
+<ul issues>
+  {% for item in processed %}
+  <li {% if not item.result %}not-valid{% endif %}>
+    <a
+      href="{{ config.JIRA_URL }}/browse/{{ item.issue.key }}"
+      rel="noreferrer"
+      target="_blank"
+      >{{ item.issue.key }}</a
+    >
+    <div>{{ item.issue.summary }}</div>
+    <div error>
+      {% if item.result %} <span label>Approved</span> {{
+      item.timestamp.strftime('%c')}} {% else %} <span label>Failed</span>{{
+      item.error }}{% endif %}
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Nothing</p>
+{% endif %} {% endblock %}

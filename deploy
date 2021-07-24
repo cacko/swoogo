@@ -1,0 +1,144 @@
+#!/usr/bin/env python
+
+import argparse
+import subprocess
+import sys
+import os
+from pathlib import Path
+from subprocess import Popen, PIPE, STDOUT
+from shlex import join
+import platform
+
+PARSER = argparse.ArgumentParser()
+sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 1)  # line buffering
+ON_PROD = platform.node() in ["nano"]
+
+class Deploy:
+
+    root = Path(__file__).parent
+    paths = {}
+    remoteHost = "open2"
+
+    locals = ["gitpush"]
+
+    @property
+    def python(self):
+        return self._which("python")
+
+    @property
+    def pipenv(self):
+        return "./pipenv"
+
+    @property
+    def git(self):
+        return self._which("git")
+
+    def run(self):
+        os.chdir(self.root)
+        for f, e in self.__dict__.items():
+            if e and hasattr(self, f"run_{f}"):
+                self._exec(f)
+
+    def _exec(self, f):
+        if not ON_PROD and f not in self.locals:
+            self._log(f".!. Executing on nano")
+            self._run("ssh", self.remoteHost, f"/var/www/swoogo/deploy {self.remote} --{f}")
+        else:
+            getattr(self, f"run_{f}")()
+
+    def _log(self, message):
+        print(f"\n({platform.node()}) >> {message}")
+
+    def _which(self, exe):
+        if not exe in self.paths:
+            with Popen(["which", exe], stdout=PIPE, stderr=STDOUT) as p:
+                for line in iter(p.stdout.readline, b""):
+                    self.paths[exe] = line.decode().strip()
+                    break
+                if p.returncode:
+                    sys.exit(1)
+        return self.paths.get(exe)
+
+
+    def run_deploy(self):
+        self.run_stop()
+        self.run_gitpull()
+        self.run_restart()
+
+    def run_flushcache(self):
+        self._log(f"flushing cache...")
+        self._manage("flush-cache", "all")
+
+    def run_gitpull(self):
+        self._git("reset", "--hard")
+        self._git("pull")
+
+    def run_restart(self):
+        self._log(f"restart service swoogo...")
+        self._run("systemctl", "--user", "restart", "swoogo")
+
+    def run_stop(self):
+        self._log(f"stopping service swoogo...")
+        self._run("systemctl", "--user", "stop", "swoogo")
+
+
+    def run_install(self):
+        self._log(f"pipenv install...")
+        self._run(self.pipenv, "install", "-d")
+
+
+    def run_gitpush(self):
+        self._log(f"git commit...")
+        subprocess.call(
+            f'{self.git} commit -am "$(curl -s whatthecommit.com/index.txt)"',
+            shell=True,
+        )
+        self._git("push")
+
+    def run_logs(self):
+        self._run("journalctl", "--user-unit", "swoogo", "-f")
+
+    def _git(self, *args):
+        self._run(self.git, *args)
+
+    def _run(self, *cmd):
+        self._log(f"{join(cmd)}")
+        return subprocess.call(
+            join(cmd),
+            shell=True,
+            env=dict(os.environ, PIPENV_DOTENV_LOCATION="../nginx.env"),
+        )
+
+
+PARSER.add_argument("-c", "--gitpush", action="store_true", help="git push")
+
+PARSER.add_argument("-p", "--gitpull", action="store_true", help="git pull")
+
+PARSER.add_argument(
+    "-d",
+    "--deploy",
+    action="store_true",
+    help="executes stop, gitpull,restart",
+)
+
+
+
+PARSER.add_argument("-k", "--stop", action="store_true", help="stop server")
+
+PARSER.add_argument("-f", "--flushcache", action="store_true", help="flush cache")
+
+PARSER.add_argument("-r", "--restart", action="store_true", help="restart server")
+
+PARSER.add_argument("-l", "--logs", action="store_true", help="show logs")
+
+PARSER.add_argument("-i", "--install", action="store_true", help="pipenv install")
+
+PARSER.add_argument("remote", nargs="?", default="nano", help="nano or gitlab")
+
+if __name__ == "__main__":
+    try:
+        deploy = Deploy()
+        PARSER.parse_args(namespace=deploy)
+        deploy.run()
+    except KeyboardInterrupt:
+        pass

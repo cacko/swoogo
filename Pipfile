@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+requests = "*"
+pyotp = "*"
+atlassian-python-api = "*"
+toml = "*"
+hiredis = "*"
+redis = "*"
+flask-assets = "*"
+webassets = "*"
+cssmin = "*"
+pyscss = "*"
+gunicorn = "*"
+flask-apscheduler = "*"
+
+[dev-packages]
+black = "*"
+
+[requires]
+python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true

@@ -1,0 +1,7 @@
+jira.sock
+.vscode/
+pipenv
+gen/
+__pycache__
+.webassets-cache
+instance/*
