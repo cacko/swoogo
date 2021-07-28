@@ -7,4 +7,4 @@ bp = Blueprint('index', __name__)
 
 @bp.route('/')
 def index():
-    redirect(url_for("/custom_50x.html"), 502)
+    redirect(url_for("static", "/custom_50x.html"), 502)
