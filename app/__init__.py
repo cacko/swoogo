@@ -5,9 +5,18 @@ from flask import Flask
 from attlasian import Attlasian
 from flask_assets import Environment, Bundle
 import logging
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
 
 
 def create_app(test_config=None):
+
+    sentry_sdk.init(
+        dsn="https://366276863762458aa982dea08e40d660@o922658.ingest.sentry.io/5883476",
+        integrations=[FlaskIntegration()],
+        traces_sample_rate=0.5,
+    )
+
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_envvar("FLASK_CONFIG")
     gunicorn_logger = logging.getLogger("gunicorn.error")
@@ -41,5 +50,5 @@ def create_app(test_config=None):
     app.register_blueprint(index.bp)
     app.register_blueprint(jira.bp)
     app.add_url_rule("/", endpoint="index")
-    
+
     return app

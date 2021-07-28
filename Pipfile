@@ -17,6 +17,7 @@ cssmin = "*"
 pyscss = "*"
 gunicorn = "*"
 flask-apscheduler = "*"
+sentry-sdk = {extras = ["flask"], version = "*"}
 
 [dev-packages]
 black = "*"
