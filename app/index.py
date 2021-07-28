@@ -1,10 +1,9 @@
 from flask import (
-    Blueprint, abort, redirect
+    Blueprint, abort
 )
-from flask.helpers import url_for
 
 bp = Blueprint('index', __name__)
 
 @bp.route('/')
 def index():
-    redirect(url_for("static", "/custom_50x.html"), 502)
+    abort(502)
