@@ -87,8 +87,6 @@ class ProcessedItem:
         json = loads(data)
         self.__issue = Issue(json)
         self.__processed = json.get("processed")
-        logger: Logger = current_app.logger
-        logger.warn(self.__processed)
 
     @property
     def issue(self) -> Issue:

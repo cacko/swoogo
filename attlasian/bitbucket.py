@@ -6,7 +6,6 @@ from .types import Commit
 import requests
 
 ENDPOINT_APPROVE = '/2.0/repositories/swoogo/www.swoogo.com/commit/{commit.id}/approve'
-ENDPOINT_COMMIT = '2.0/repositories/swoogo/www.swoogo.com/commit/{id}'
 
 class bitbucket_(Remote):
 
@@ -22,8 +21,3 @@ class bitbucket_(Remote):
             except requests.exceptions.HTTPError as err:
                 self._logger.error(err)
                 pass
-
-    def commit(self, id):
-        res = self._api.get(ENDPOINT_COMMIT.format(id=id))
-        self._logger.warn(res)
-        return res
