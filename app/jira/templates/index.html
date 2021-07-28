@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% block title %}Jira/Bitbucket code reviews{%endblock %} 
+{% block content %}
 <h1>Waiting for Code Review</h1>
 {% if waiting|length %}
 <ul issues>
