@@ -4,12 +4,14 @@
 <ul issues>
   {% for item in waiting %} {% set isValid = item.isValid %}
   <li {% if not isValid %}not-valid{% endif %}>
-    <a
-      href="{{ config.JIRA_URL }}/browse/{{ item.key }}"
-      rel="noreferrer"
-      target="_blank"
-      >{{ item.key }}</a
-    >
+    <div link>
+      <a
+        href="{{ config.JIRA_URL }}/browse/{{ item.key }}"
+        rel="noreferrer"
+        target="_blank"
+        >{{ item.key }}</a
+      >
+    </div>
     <div>
       <div>{{ item.summary }}</div>
       <div issue-status>
@@ -39,12 +41,14 @@
 <ul issues>
   {% for item in processed %}
   <li {% if not item.result %}not-valid{% endif %}>
-    <a
-      href="{{ config.JIRA_URL }}/browse/{{ item.issue.key }}"
-      rel="noreferrer"
-      target="_blank"
-      >{{ item.issue.key }}</a
-    >
+    <div link>
+      <a
+        href="{{ config.JIRA_URL }}/browse/{{ item.issue.key }}"
+        rel="noreferrer"
+        target="_blank"
+        >{{ item.issue.key }}</a
+      >
+    </div>
     <div>{{ item.issue.summary }}</div>
     <div error>
       {% if item.result %} <span label>Approved</span> {{
