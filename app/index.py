@@ -1,9 +1,9 @@
 from flask import (
-    Blueprint, abort
+    Blueprint, abort, redirect
 )
 
 bp = Blueprint('index', __name__)
 
 @bp.route('/')
 def index():
-    abort(502)
+    redirect("/custom_50x.html", 502)
