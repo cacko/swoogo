@@ -14,8 +14,7 @@ class WaitingItem:
     __job: Job = None
 
     def __init__(self, data) -> None:
-        json = loads(data)
-        self.__issue = Issue(json.get("issue"))
+        self.__issue = Issue(loads(data))
         self.__job = Scheduler.get_job(self.__issue.key)
 
     @property
