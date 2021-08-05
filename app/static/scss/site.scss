@@ -97,6 +97,10 @@ pre {
             flex-flow: row;
             column-gap: 0.5em;
 
+            text-transform: uppercase;
+            padding-bottom: 0.5em;
+            font-weight: bold;
+
             &[link] {
                 align-items: flex-start;
 
@@ -108,16 +112,7 @@ pre {
                 }
             }
 
-            [label] {
-                color: $secondary-color;
-                padding-right: 0.3em;
-            }
 
-
-            [issue-assignee] {
-                color: $secondary-color;
-                padding-left: .3em;
-            }
         }
 
         section {
@@ -130,6 +125,17 @@ pre {
                 row-gap: 0.3em;
                 align-items: center;
                 padding-top: 0;
+            }
+
+            [label] {
+                color: $secondary-color;
+                padding-right: 0.3em;
+            }
+
+
+            [issue-assignee] {
+                color: $secondary-color;
+                padding-left: .3em;
             }
 
             &[not-valid] {
