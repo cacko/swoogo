@@ -1,10 +1,12 @@
 {% set isValid = item.isValid %}
 <li {% if not isValid %} not-valid="not-valid" {% endif %}>
-  <div link="link">
-    <a href="{{ config.JIRA_URL }}/browse/{{ item.key }}" rel="noreferrer" target="_blank">{{ item.key }}</a>
-  </div>
-  <div>
+  <header>
+    <div link="link">
+      <a href="{{ config.JIRA_URL }}/browse/{{ item.key }}" rel="noreferrer" target="_blank">{{ item.key }}</a>
+    </div>
     <div>{{ item.summary }}</div>
+  </header>
+  <div>
     <div issue-status="issue-status">
       {{ item.status }}
       <span issue-assignee="issue-assignee">{{ item.assignee.name }}</span>

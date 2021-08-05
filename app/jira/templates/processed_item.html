@@ -1,0 +1,14 @@
+<li {% if not item.result %} not-valid="not-valid" {% endif %}>
+  <div link="link">
+    <a href="{{config.JIRA_URL}}/browse/{{item.issue.key}}" rel="noreferrer" target="_blank">{{item.issue.key}}</a>
+  </div>
+  <div>{{ item.issue.summary }}</div>
+  <div error="error">
+    {% if item.result %}
+      <span label="label">Approved</span>
+      {{item.timestamp.strftime('%c')}}
+    {% else %}
+      <span label="label">Failed</span>{{item.error }}
+    {% endif %}
+  </div>
+</li>
