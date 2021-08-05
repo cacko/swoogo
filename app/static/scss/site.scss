@@ -2,12 +2,14 @@ $font-color: #e8e9ed;
 $error-color: #ff3333;
 $secondary-color: #9dccd6;
 $page-width: 60em;
+$background-color: #333338;
+$code-bg-color: #65656e;
 
 :root {
-    --background-color: #333338;
+    --background-color: #{$background-color};
     --background-color-invert: 204, 204, 199;
     --background-color-rgb: 51, 51, 56;
-    --code-bg-color: #65656e;
+    --code-bg-color: #{$code-bg-color};
     --code-bg-color-invert: 154, 154, 145;
     --code-bg-color-rgb: 101, 101, 110;
     --invert-font-color: #222225;
@@ -42,6 +44,20 @@ $page-width: 60em;
     --font-stack: "Nova Oval";
 }
 
+
+@mixin background {
+    background: linear-gradient($background-color, transparent),
+        linear-gradient(to top left, $code-bg-color, transparent),
+        linear-gradient(to top right, $background-color, transparent);
+    background-blend-mode: multiply;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+body {
+    @include background();
+}
+
 h1 {
     text-transform: uppercase;
     font-weight: bold;
@@ -58,20 +74,26 @@ pre {
 }
 
 [issues] {
-    border-top: 0.5px dotted $font-color;
+    @media only screen and (min-width: 768px) {
+
+        border-top: 0.5px dotted $font-color;
+
+    }
 
     li {
+        padding-left: 0;
+        padding-bottom: .5em;
         display: flex;
         flex-flow: column;
-
+        border-bottom: 0.5px dotted $font-color;
+        padding-top: 0.5em;
         @media only screen and (min-width: 768px) {
             display: grid;
             grid-template-columns: minmax(8em, 1fr) minmax(10em, 2fr) minmax(10em, 2fr);
             column-gap: 0.3em;
             row-gap: 0.3em;
-            padding: 0.5rem;
-            border-bottom: 0.5px dotted $font-color;
             align-items: center;
+            padding-top: 0;
         }
 
         >div {
@@ -82,11 +104,9 @@ pre {
                 align-items: flex-start;
 
                 a {
-                    padding: 0 0.3em;
-
                     &:hover {
                         border-radius: 5px;
-                        ;
+                        padding: 0 0.3em;
                     }
                 }
             }
