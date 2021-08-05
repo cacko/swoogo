@@ -11,20 +11,19 @@
             <a href="{{ config.JIRA_URL }}/browse/{{ item.key }}" rel="noreferrer" target="_blank">{{ item.key }}</a>
           </div>
           <div>
-            <div>{{ item.summary }}</div>
+            <div>{{item.summary}}</div>
             <div issue-status="issue-status">
               {{ item.status }}
-              <span issue-assignee="issue-assignee">{{ item.assignee.name }}</span>
+              <span issue-assignee="issue-assignee">{{item.assignee.name}}</span>
             </div>
             {% if not isValid %}
-              <div error="error">{{ item.errors|join(',') }}</div>
+              <div error="error">{{item.errors|join(',')}}</div>
             {% endif %}
           </div>
           <div>
             <div>
               {% if item.job %}
-                <span label="label">Scheduled</span>{{
-        item.job.next_run_time.strftime('%H:%M %A')}}
+                <span label="label">Scheduled</span>{{item.job.next_run_time.strftime('%H:%M %A')}}
               {% else %}
                 Stalled
               {% endif %}
@@ -45,17 +44,15 @@
       {% for item in processed %}
         <li {% if not item.result %} not-valid{% endif %}="not-valid{% endif %}">
           <div link="link">
-            <a href="{{ config.JIRA_URL }}/browse/{{ item.issue.key }}" rel="noreferrer" target="_blank">{{ item.issue.key }}</a>
+            <a href="{{config.JIRA_URL}}/browse/{{item.issue.key}}" rel="noreferrer" target="_blank">{{item.issue.key}}</a>
           </div>
           <div>{{ item.issue.summary }}</div>
           <div error="error">
             {% if item.result %}
               <span label="label">Approved</span>
-              {{
-      item.timestamp.strftime('%c')}}
+              {{item.timestamp.strftime('%c')}}
             {% else %}
-              <span label="label">Failed</span>{{
-      item.error }}
+              <span label="label">Failed</span>{{item.error }}
             {% endif %}
           </div>
         </li>
