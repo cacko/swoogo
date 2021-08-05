@@ -6,25 +6,27 @@
     </div>
     <div>{{ item.summary }}</div>
   </header>
-  <div>
-    <div issue-status="issue-status">
-      {{ item.status }}
-      <span issue-assignee="issue-assignee">{{ item.assignee.name }}</span>
-    </div>
-    {% if not isValid %}
-      <div error="error">{{ item.errors|join(', ') }}</div>
-    {% endif %}
-  </div>
-  <div>
+  <section>
     <div>
-      {% if item.job %}
-        <span label="label">Scheduled</span>{{item.job.next_run_time.strftime('%H:%M %A')}}
-      {% else %}
-        Stalled
+      <div issue-status="issue-status">
+        {{ item.status }}
+        <span issue-assignee="issue-assignee">{{ item.assignee.name }}</span>
+      </div>
+      {% if not isValid %}
+        <div error="error">{{ item.errors|join(', ') }}</div>
       {% endif %}
     </div>
     <div>
-      <span label="label">From</span>{{ item.returnTo.name }}
-      ({{item.returnTo.email}})</div>
-  </div>
+      <div>
+        {% if item.job %}
+          <span label="label">Scheduled</span>{{item.job.next_run_time.strftime('%H:%M %A')}}
+        {% else %}
+          Stalled
+        {% endif %}
+      </div>
+      <div>
+        <span label="label">From</span>{{ item.returnTo.name }}
+        ({{item.returnTo.email}})</div>
+    </div>
+  </section>
 </li>

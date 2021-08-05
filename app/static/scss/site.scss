@@ -84,19 +84,14 @@ pre {
         padding-left: 0;
         padding-bottom: .5em;
         display: flex;
-        flex-flow: column;
         border-bottom: 0.5px dotted $font-color;
         padding-top: 0.5em;
-        @media only screen and (min-width: 768px) {
-            display: grid;
-            grid-template-columns: minmax(8em, 1fr) minmax(10em, 2fr) minmax(10em, 2fr);
-            column-gap: 0.3em;
-            row-gap: 0.3em;
-            align-items: center;
-            padding-top: 0;
+
+        &:after {
+            content: unset;
         }
 
-        >div {
+        >header {
             display: flex;
             flex-flow: column;
 
@@ -123,22 +118,29 @@ pre {
             }
         }
 
-        &:after {
-            content: unset;
-        }
-
-
-
-        &[not-valid] {
-
-            [error] {
-                font-variant: small-caps;
-                color: $error-color;
+        section {
+            display: flex;
+            @media only screen and (min-width: 768px) {
+                display: grid;
+                grid-template-columns: minmax(8em, 1fr) minmax(10em, 2fr) minmax(10em, 2fr);
+                column-gap: 0.3em;
+                row-gap: 0.3em;
+                align-items: center;
+                padding-top: 0;
             }
 
-            a {
-                color: $error-color;
+            &[not-valid] {
+
+                [error] {
+                    font-variant: small-caps;
+                    color: $error-color;
+                }
+
+                a {
+                    color: $error-color;
+                }
             }
+
         }
 
     }
