@@ -75,9 +75,7 @@ pre {
 
 [issues] {
     @media only screen and (min-width: 768px) {
-
         border-top: 0.5px dotted $font-color;
-
     }
 
     li {
@@ -92,6 +90,8 @@ pre {
             content: unset;
         }
 
+
+
         >header {
             display: flex;
             flex-flow: row;
@@ -100,19 +100,6 @@ pre {
             text-transform: uppercase;
             padding-bottom: 0.5em;
             font-weight: bold;
-
-            &[link] {
-                align-items: flex-start;
-
-                a {
-                    &:hover {
-                        border-radius: 5px;
-                        padding: 0 0.3em;
-                    }
-                }
-            }
-
-
         }
 
         section {
@@ -127,16 +114,7 @@ pre {
                 padding-top: 0;
             }
 
-            [label] {
-                color: $secondary-color;
-                padding-right: 0.3em;
-            }
 
-
-            [issue-assignee] {
-                color: $secondary-color;
-                padding-left: .3em;
-            }
 
             &[not-valid] {
 
@@ -150,6 +128,28 @@ pre {
                 }
             }
 
+        }
+
+        [label] {
+            color: $secondary-color;
+            padding-right: 0.3em;
+        }
+
+
+        [issue-assignee] {
+            color: $secondary-color;
+            padding-left: .3em;
+        }
+
+        [link] {
+            align-items: flex-start;
+
+            a {
+                &:hover {
+                    border-radius: 5px;
+                    padding: 0 0.3em;
+                }
+            }
         }
 
     }
