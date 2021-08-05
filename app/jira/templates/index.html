@@ -30,7 +30,7 @@
         item.job.next_run_time.strftime('%H:%M %A')}} {% else %} Stalled {%
         endif %}
       </div>
-      <div><span label>From</span>{{ item.returnTo.name }}</div>
+      <div><span label>From</span>{{ item.returnTo.name }} ({{item.returnTo.email}})</div>
     </div>
   </li>
   {% endfor %}
