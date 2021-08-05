@@ -84,6 +84,7 @@ pre {
         padding-left: 0;
         padding-bottom: .5em;
         display: flex;
+        flex-flow: column nowrap;
         border-bottom: 0.5px dotted $font-color;
         padding-top: 0.5em;
 
@@ -93,7 +94,8 @@ pre {
 
         >header {
             display: flex;
-            flex-flow: column;
+            flex-flow: row;
+            column-gap: 0.5em;
 
             &[link] {
                 align-items: flex-start;
@@ -120,9 +122,10 @@ pre {
 
         section {
             display: flex;
+
             @media only screen and (min-width: 768px) {
                 display: grid;
-                grid-template-columns: minmax(8em, 1fr) minmax(10em, 2fr) minmax(10em, 2fr);
+                grid-template-columns: 1fr 1fr;
                 column-gap: 0.3em;
                 row-gap: 0.3em;
                 align-items: center;
