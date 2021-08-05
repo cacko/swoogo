@@ -17,7 +17,7 @@
               <span issue-assignee="issue-assignee">{{ item.assignee.name }}</span>
             </div>
             {% if not isValid %}
-              <div error="error">{{ item.errors|join(',') }}</div>
+              <div error="error">{{ item.errors|join(', ') }}</div>
             {% endif %}
           </div>
           <div>

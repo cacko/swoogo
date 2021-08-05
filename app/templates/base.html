@@ -1,39 +1,45 @@
 <!doctype html>
+
 <head>
-<title>{% block title %}Swoogo tools{% endblock %}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="google" value="notranslate"> 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin='anonymous'>
- <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-<link rel="mask-icon" sizes="any" href="{{url_for('static', filename='jira-safari-pintab-icon.svg')}}" color="#2684FF">
-<link href="https://fonts.googleapis.com/css2?family=Nova+Oval%3Awght%40400&amp;display=swap" rel="stylesheet" crossorigin="anonymous">
-{% assets "styles" %}
-    <link rel="stylesheet" href="{{ ASSET_URL }}">
-{% endassets %}
+  <title>
+    {% block title %}Swoogo tools{% endblock %}
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="google" value="notranslate">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin='anonymous'>
+  <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
+  <link rel="mask-icon" sizes="any" href="{{url_for('static', filename='jira-safari-pintab-icon.svg')}}" color="#2684FF">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono%3Awght%40400&amp;display=swap" rel="stylesheet" crossorigin="anonymous">
+  {% assets "styles" %}
+  <link rel="stylesheet" href="{{ ASSET_URL }}">
+  {% endassets %}
 </head>
+
 <body class="terminal">
   <div class="container">
-  <div class="terminal-nav">
-    <header class="terminal-logo">
-      <div class="logo terminal-prompt"><a href="#" class="no-style">Jira</a></div>
-    </header>
-    <nav class="terminal-menu">
-      <ul vocab="https://schema.org/" typeof="BreadcrumbList">
-      </ul>
-    </nav>
+    <div class="terminal-nav">
+      <header class="terminal-logo">
+        <div class="logo terminal-prompt">
+          <a href="#" class="no-style">Jira</a>
+        </div>
+      </header>
+      <nav class="terminal-menu">
+        <ul vocab="https://schema.org/" typeof="BreadcrumbList"></ul>
+      </nav>
+    </div>
   </div>
-</div>
 
-<div class="container">
-<section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-  {% block content %}{% endblock %}
-</section>
-</div>
+  <div class="container">
+    <section class="content">
+      <header>
+        {% block header %}{% endblock %}
+      </header>
+      {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+      {% block content %}{% endblock %}
+    </section>
+  </div>
 </body>
+
 </html>
