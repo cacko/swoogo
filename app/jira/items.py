@@ -56,21 +56,24 @@ class WaitingItem:
 
     @property
     def errors(self):
+        errors = []
         with Scheduler.app_context as context:
             config = context.app.config
             my_username = config.get("JIRA_USERNAME")
-            errors = []
             if self.returnTo.email == my_username:
                 Scheduler.logger.warn(f"{self.key} is not valid, self assigned problem")
-                errors.append("Self assigned for review") 
+                errors.append("Self assigned for review")
             if self.assignee.email != my_username:
-                Scheduler.logger.warn(f"{self.key} is not valid, not assigned to reviewer")
-                errors.append( "Not proper assignment")
+                Scheduler.logger.warn(
+                    f"{self.key} is not valid, not assigned to reviewer"
+                )
+                errors.append("Not proper assignment")
             if self.status != JiraStatus.CODE_REVIEW.value:
-                Scheduler.logger.warn(f"{self.key} is not valid, not Code Review status")
+                Scheduler.logger.warn(
+                    f"{self.key} is not valid, not Code Review status"
+                )
                 errors.append("Not in the right status")
-              
-        return None
+        return errors
 
     @property
     def devStatus(self) -> DevStatus:
