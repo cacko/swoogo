@@ -44,8 +44,7 @@ class jira_(Remote):
     def getReturnTo(self, key) -> JiraAccount:
         history: IssueHistory = next(
             filter(
-                lambda h: self._api.username != h.author.email
-                and JiraStatus.CODE_REVIEW.value in h.status,
+                lambda h: JiraStatus.CODE_REVIEW.value in h.status,
                 self.getChangelog(key).history,
             ),
             None,
