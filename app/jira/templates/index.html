@@ -5,34 +5,7 @@
   {% if waiting | length %}
     <ul issues="issues">
       {% for item in waiting %}
-        {% set isValid = item.isValid %}
-        <li {% if not isValid %} not-valid="not-valid" {% endif %}>
-          <div link="link">
-            <a href="{{ config.JIRA_URL }}/browse/{{ item.key }}" rel="noreferrer" target="_blank">{{ item.key }}</a>
-          </div>
-          <div>
-            <div>{{ item.summary }}</div>
-            <div issue-status="issue-status">
-              {{ item.status }}
-              <span issue-assignee="issue-assignee">{{ item.assignee.name }}</span>
-            </div>
-            {% if not isValid %}
-              <div error="error">{{ item.errors|join(', ') }}</div>
-            {% endif %}
-          </div>
-          <div>
-            <div>
-              {% if item.job %}
-                <span label="label">Scheduled</span>{{item.job.next_run_time.strftime('%H:%M %A')}}
-              {% else %}
-                Stalled
-              {% endif %}
-            </div>
-            <div>
-              <span label="label">From</span>{{ item.returnTo.name }}
-              ({{item.returnTo.email}})</div>
-          </div>
-        </li>
+        {% include "waiting_item.html" with context %}
       {% endfor %}
     </ul>
   {% else %}
