@@ -1,0 +1,51 @@
+version: "3"
+
+tasks:
+  stop:
+    desc: stop the server
+    cmds:
+      - ./swoogo-cli -k
+  
+  push:
+    desc: commit and pushes current changes
+    cmds:
+      - ./swoogo-cli -c
+
+  pull:
+    desc: pulls from git
+    cmds:
+      - ./swoogo-cli -p
+
+  pp:
+    desc: push and pull
+    cmds:
+      - task: push
+      - task: pull
+
+  flush:
+    desc: flush the cache
+    cmds:
+      - ./swoogo-cli -f
+
+  logs:
+    desc: monitor logs
+    cmds:
+      - ./swoogo-cli -l 
+
+  install:
+    desc: calls pipenv install and npm ci
+    cmds:
+      - ./swoogo-cli -i
+
+  restart:
+    desc: restart the service
+    cmds: 
+      - ./swoogo-cli -r
+
+  deploy:
+    desc: shortcut for stop -> push -> pull -> restart
+    cmds: 
+      - task: stop
+      - task: push
+      - task: pull
+      - task: restart

@@ -17,7 +17,7 @@ class Deploy:
 
     root = Path(__file__).parent
     paths = {}
-    remoteHost = "open2"
+    remoteHost = "open"
 
     locals = ["gitpush"]
 
@@ -42,7 +42,7 @@ class Deploy:
     def _exec(self, f):
         if not ON_PROD and f not in self.locals:
             self._log(f".!. Executing on nano")
-            self._run("ssh", self.remoteHost, f"/var/www/swoogo/deploy {self.remote} --{f}")
+            self._run("ssh", self.remoteHost, f"/var/www/swoogo/swoogo-cli {self.remote} --{f}")
         else:
             getattr(self, f"run_{f}")()
 
