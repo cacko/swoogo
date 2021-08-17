@@ -5,3 +5,4 @@ gen/
 __pycache__
 .webassets-cache
 instance/*
+venv

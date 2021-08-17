@@ -7,7 +7,6 @@ from json import loads
 from app.scheduler import Scheduler
 from flask import current_app
 
-
 class WaitingItem:
     __issue: Issue = None
     __devStatus: DevStatus = None
@@ -101,6 +100,14 @@ class ProcessedItem:
         return self.__issue
 
     @property
+    def status(self) -> str:
+        return self.__issue.status.name
+
+    @property
+    def assignee(self) -> JiraAccount:
+        return self.__issue.assignee
+
+    @property
     def timestamp(self) -> datetime:
         return datetime.fromtimestamp(self.__processed.get("timestamp"))
 
@@ -110,4 +117,5 @@ class ProcessedItem:
 
     @property
     def error(self):
-        return self.__processed.get("error")
+        error = self.__processed.get("error")
+        return error if isinstance(error, list) else [error]

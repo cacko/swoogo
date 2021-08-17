@@ -42,6 +42,11 @@ tasks:
     cmds: 
       - ./swoogo-cli -r
 
+  serve:
+    desc: start gunicorn
+    cmds:
+      - pipenv run gunicorn "app:create_app()"
+
   deploy:
     desc: shortcut for stop -> push -> pull -> restart
     cmds: 
