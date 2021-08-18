@@ -6,7 +6,7 @@
     <div>{{ item.issue.summary }}</div>
   </header>
   <section {% if not isValid %} not-valid="not-valid" {% endif %}>
-      <div>
+    <div>
       <div>
         {% if item.result %}
           <span label="label">Approved</span>
@@ -28,9 +28,18 @@
         <span issue-assignee="issue-assignee">{{ item.assignee.name }}</span>
       </div>
       {% if not isValid %}
-        <div error="error">{{ item.errors|join(', ') }}</div>
+        <div error="error">
+          {{ item.errors|join(', ') }}
+        </div>
       {% endif %}
     </div>
-
+    <div actions>
+      <a class="btn btn-ghost">
+        <i  class='cap-icon ci-refresh'></i>
+      </a>
+      <a class="btn btn-ghost"  href="{{ url_for( 'jira.archive', key=item.issue.key, type='processed' ) }}">
+        <i class='cap-icon ci-times'></i>
+      </a>
+    </div>
   </section>
 </li>

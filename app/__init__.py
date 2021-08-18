@@ -34,6 +34,7 @@ def create_app(test_config=None):
     styles = Bundle(
         "css/normalize.css",
         "css/terminal.css",
+        "css/captain-icons.css",
         scss,
         filters="cssmin",
         output="gen/style.css",

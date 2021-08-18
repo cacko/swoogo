@@ -25,8 +25,18 @@
         {% endif %}
       </div>
       <div>
-        <span label="label">From</span>{{ item.returnTo.name }}
-        ({{item.returnTo.email}})</div>
+        <span label="label">From</span>
+        {{ item.returnTo.name }}
+        ({{item.returnTo.email}})
+      </div>
+    </div>
+    <div actions>
+      <a class="btn btn-ghost">
+        <i class='cap-icon ci-refresh'></i>
+      </a>
+      <a class="btn btn-ghost"  href="{{ url_for( 'jira.archive', key=item.key, type='waiting' ) }}">
+        <i class='cap-icon ci-times'></i>
+      </a>
     </div>
   </section>
 </li>

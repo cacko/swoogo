@@ -18,6 +18,7 @@ pyscss = "*"
 gunicorn = "*"
 flask-apscheduler = "*"
 sentry-sdk = {extras = ["flask"], version = "*"}
+flask-httpauth = "*"
 
 [dev-packages]
 black = "*"

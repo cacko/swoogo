@@ -13,6 +13,7 @@ class WaitingItem:
     __job: Job = None
 
     def __init__(self, data) -> None:
+        print(data)
         self.__issue = Issue(loads(data))
         self.__job = Scheduler.get_job(self.__issue.key)
 

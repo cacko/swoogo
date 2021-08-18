@@ -1,5 +1,6 @@
-from flask import Blueprint, request, render_template, current_app
-from app.auth import auth_required
+from flask import Blueprint, request, render_template, current_app, redirect
+from flask.helpers import url_for
+from app.auth import auth_required, Auth
 from app.storage import Storage
 from .items import ProcessedItem, WaitingItem
 from attlasian.types import Issue
@@ -11,6 +12,7 @@ bp = Blueprint("jira", __name__, url_prefix="/jira", template_folder="templates"
 
 
 @bp.route("/")
+@Auth.login_required
 def index():
     res = Storage.keys("waiting:*")
     waiting = [WaitingItem(d) for d in Storage.mget(res)]
@@ -38,3 +40,13 @@ def approve():
         current_app.logger.info(f"JOB ADDED -> {job.next_run_time} {job.id}")
 
     return ("OK", 200)
+
+@bp.route("/archive", methods=["GET"])
+@Auth.login_required
+def archive():
+    key = request.args.get('key', '')
+    type = request.args.get("type", '')
+    Storage.rename(f"{type}:{key}", f"archived:{key}")
+    return redirect(url_for("jira.index"))
+
+
